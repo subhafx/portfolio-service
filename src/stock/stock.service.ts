@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { default as yf } from 'yahoo-finance2';
-import { map as _map } from 'lodash';
+import { map as _map, reduce as _reduce } from 'lodash';
 import { Stock } from './entities/stock.entity';
 @Injectable()
 export class StockService {
@@ -30,6 +30,18 @@ export class StockService {
       regularMarketPreviousClose,
       regularMarketOpen,
       regularMarketPrice,
+    );
+  }
+
+  async getCurrentMarketPriceByStockIds(stock_ids: string[]): Promise<any> {
+    const map = await yf.quote([...stock_ids]);
+    return _reduce(
+      map,
+      (acc, details) => {
+        acc[details.symbol] = details.regularMarketPrice;
+        return acc;
+      },
+      {},
     );
   }
 }

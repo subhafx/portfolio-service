@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { PortfolioService } from './portfolio.service';
+
 import { PortfolioController } from './portfolio.controller';
+import { TradeModule } from '../trade/trade.module';
+import { StockModule } from '../stock/stock.module';
 
 @Module({
+  imports: [TradeModule, StockModule],
   controllers: [PortfolioController],
-  providers: [PortfolioService],
 })
 export class PortfolioModule {}

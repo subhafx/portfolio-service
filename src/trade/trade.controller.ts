@@ -8,6 +8,7 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
+  Query,
 } from '@nestjs/common';
 import { TradeService } from './trade.service';
 import { CreateTradeDto } from './dto/create-trade.dto';
@@ -16,7 +17,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { ZodValidationPipe } from '../validation';
 
 @ApiTags('Trade')
-@Controller('trade')
+@Controller('portfolio/trade')
 export class TradeController {
   constructor(private readonly tradeService: TradeService) {}
 
@@ -24,11 +25,6 @@ export class TradeController {
   // @UsePipes(new ZodValidationPipe(createTradeSchema))
   create(@Body(new ValidationPipe()) createTradeDto: CreateTradeDto) {
     return this.tradeService.create(createTradeDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.tradeService.findAll();
   }
 
   @Get(':id')

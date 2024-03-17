@@ -4,6 +4,8 @@ import { CreateTradeDto } from './dto/create-trade.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { TradeDocument } from './trade.schema';
+import { map as _map } from 'lodash';
+import { record } from 'zod';
 
 @Injectable()
 export class TradeService {
@@ -20,8 +22,57 @@ export class TradeService {
     });
   }
 
-  findAll() {
-    return;
+  async findAll(pageOptions: { page: number; limitPerPage: number }): Promise<{
+    trades: TradeDocument[];
+    paginator: { page: number; limitPerPage: number; totalCount: number };
+  }> {
+    const skip = (pageOptions.page - 1) * pageOptions.limitPerPage;
+    const total = await this.tradeModel.countDocuments();
+
+    const trades = await this.tradeModel
+      .find()
+      .skip(skip)
+      .limit(pageOptions.limitPerPage)
+      .exec();
+    return {
+      trades,
+      paginator: {
+        page: pageOptions.page,
+        limitPerPage: pageOptions.limitPerPage,
+        totalCount: total,
+      },
+    };
+  }
+
+  async getStocksAvgBuyingPrice(): Promise<
+    Array<{
+      stock_id: string;
+      avg_buying_price: number;
+      quantity: number;
+    }>
+  > {
+    const aggsData = await this.tradeModel.aggregate([
+      {
+        $group: {
+          _id: '$stock_id',
+          total_price_paid: { $sum: '$total_amount' },
+          total_quantity: { $sum: '$quantity' },
+        },
+      },
+    ]);
+
+    return _map(
+      aggsData,
+      (record: {
+        _id: string;
+        total_price_paid: number;
+        total_quantity: number;
+      }) => ({
+        stock_id: record._id,
+        avg_buying_price: record.total_price_paid / record.total_quantity,
+        quantity: record.total_quantity,
+      }),
+    );
   }
 
   findOne(stock_id: string) {
