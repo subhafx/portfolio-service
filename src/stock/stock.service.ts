@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { default as yf } from 'yahoo-finance2';
 import { map as _map, reduce as _reduce } from 'lodash';
 import { Stock } from './entities/stock.entity';
+import { StockList, StockMarketPrice } from './types';
 @Injectable()
 export class StockService {
-  async findAll(count: number): Promise<{ count: number; stockIds: string[] }> {
+  async findAll(count: number): Promise<StockList> {
     const { count: totalCount, quotes } = await yf.trendingSymbols('US', {
       count,
       lang: 'en-US',
@@ -12,28 +13,39 @@ export class StockService {
 
     return {
       count: totalCount,
-      stockIds: _map(quotes, 'symbol'),
+      stocks: await this.getCurrentMarketPriceByStockIds(
+        _map(quotes, 'symbol'),
+      ),
     };
   }
-  async findOne(ticker: string): Promise<Stock> {
-    const { price } = await yf.quoteSummary(ticker, { modules: ['price'] });
-    const {
-      regularMarketPrice,
-      regularMarketPreviousClose,
-      regularMarketOpen,
-      symbol,
-      longName,
-    } = price;
-    return new Stock(
-      symbol,
-      longName,
-      regularMarketPreviousClose,
-      regularMarketOpen,
-      regularMarketPrice,
-    );
+  async findOne(ticker: string): Promise<Stock | BadRequestException> {
+    try {
+      const { price } = await yf.quoteSummary(ticker, { modules: ['price'] });
+      const {
+        regularMarketPrice,
+        regularMarketPreviousClose,
+        regularMarketOpen,
+        symbol,
+        longName,
+      } = price;
+      return new Stock(
+        symbol,
+        longName,
+        regularMarketPreviousClose,
+        regularMarketOpen,
+        regularMarketPrice,
+      );
+    } catch (exception) {
+      throw new BadRequestException('Internal Service Error', {
+        cause: exception,
+        description: exception.message,
+      });
+    }
   }
 
-  async getCurrentMarketPriceByStockIds(stock_ids: string[]): Promise<any> {
+  async getCurrentMarketPriceByStockIds(
+    stock_ids: string[],
+  ): Promise<StockMarketPrice> {
     const map = await yf.quote([...stock_ids]);
     return _reduce(
       map,

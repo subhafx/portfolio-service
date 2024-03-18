@@ -19,7 +19,6 @@ import { ZodValidationPipe } from '../validation';
 @ApiTags('Trade')
 @Controller({
   version: '1',
-  path: 'portfolio/trade',
 })
 export class TradeController {
   constructor(private readonly tradeService: TradeService) {}
