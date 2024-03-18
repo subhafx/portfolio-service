@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
 import { ApiNotFoundResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { StockService } from './stock.service';
 import { Stock } from './entities/stock.entity';
@@ -18,7 +18,7 @@ export class StockController {
   @Get(':id')
   @ApiResponse({ status: 200, type: Stock })
   @ApiNotFoundResponse({
-    type: BadRequestException,
+    type: NotFoundException,
     description: 'Invalid stock id',
   })
   findOne(@Param('id') id: string) {

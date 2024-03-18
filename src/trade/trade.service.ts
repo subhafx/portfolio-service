@@ -1,11 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { Model, Types } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { map as _map, isEmpty as _isEmpty } from 'lodash';
 import { UpdateTradeDto } from './dto/update-trade.dto';
 import { CreateTradeDto } from './dto/create-trade.dto';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
 import { TradeDocument } from './trade.schema';
-import { map as _map } from 'lodash';
-import { record } from 'zod';
+import {
+  PaginationOptions,
+  StockAverageBuyingPrice,
+  TradeHistory,
+} from './trade.types';
 
 @Injectable()
 export class TradeService {
@@ -22,10 +30,9 @@ export class TradeService {
     });
   }
 
-  async findAll(pageOptions: { page: number; limitPerPage: number }): Promise<{
-    trades: TradeDocument[];
-    paginator: { page: number; limitPerPage: number; totalCount: number };
-  }> {
+  async findAll(
+    pageOptions: PaginationOptions = { page: 1, limitPerPage: 10 },
+  ): Promise<TradeHistory> {
     const skip = (pageOptions.page - 1) * pageOptions.limitPerPage;
     const total = await this.tradeModel.countDocuments();
 
@@ -34,6 +41,7 @@ export class TradeService {
       .skip(skip)
       .limit(pageOptions.limitPerPage)
       .exec();
+
     return {
       trades,
       paginator: {
@@ -44,13 +52,7 @@ export class TradeService {
     };
   }
 
-  async getStocksAvgBuyingPrice(): Promise<
-    Array<{
-      stock_id: string;
-      avg_buying_price: number;
-      quantity: number;
-    }>
-  > {
+  async getStocksAvgBuyingPrice(): Promise<Array<StockAverageBuyingPrice>> {
     const aggsData = await this.tradeModel.aggregate([
       {
         $group: {
@@ -69,24 +71,36 @@ export class TradeService {
         total_quantity: number;
       }) => ({
         stock_id: record._id,
-        avg_buying_price: record.total_price_paid / record.total_quantity,
+        avg_buying_price: parseFloat(
+          (record.total_price_paid / record.total_quantity).toFixed(2),
+        ),
         quantity: record.total_quantity,
       }),
     );
   }
 
-  findOne(stock_id: string) {
-    return this.tradeModel
+  async findOne(
+    stock_id: string,
+  ): Promise<TradeDocument[] | BadRequestException> {
+    const tradeDetails = await this.tradeModel
       .find({
         stock_id: stock_id,
       })
       .sort({ _id: 'desc' });
+
+    if (_isEmpty(tradeDetails)) {
+      throw new NotFoundException('No trade found with this stockID');
+    }
+    return tradeDetails;
   }
 
-  async update(id: string, updateTradeDto: UpdateTradeDto) {
+  async update(
+    id: string,
+    updateTradeDto: UpdateTradeDto,
+  ): Promise<TradeDocument | NotFoundException> {
     const trade = await this.tradeModel.findById(id);
     if (!trade) {
-      return;
+      throw new NotFoundException('Invalid trade ID');
     }
 
     if (updateTradeDto.type) {

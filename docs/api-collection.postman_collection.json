@@ -1,0 +1,1103 @@
+{
+	"info": {
+		"_postman_id": "fd1dfaa2-8d42-4f8f-b351-1f0bdc7ba89c",
+		"name": "investment-portfolio-service",
+		"description": "A service to manage your investment portfolio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7909955"
+	},
+	"item": [
+		{
+			"name": "Portfolio",
+			"item": [
+				{
+					"name": "Stock",
+					"item": [
+						{
+							"name": "Top 5 stocks",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_path}}/portfolio/stock",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"portfolio",
+										"stock"
+									]
+								},
+								"description": "This will return top 5 trending stocks in US Market with their market price"
+							},
+							"response": [
+								{
+									"name": "Stock Details",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:3000/api/v1/portfolio/stock",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"v1",
+												"portfolio",
+												"stock"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "92"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"5c-OqlI1ubZa+kHjpLtMwkFkLpcHrk\""
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 18 Mar 2024 04:29:10 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"count\": 5,\n    \"stocks\": {\n        \"NQ=F\": 18133.25,\n        \"BJ\": 75.09,\n        \"VERB\": 0.4422,\n        \"^N225\": 39597.44,\n        \"ES=F\": 5195\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Stock Details by ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_path}}/portfolio/stock/:stockId",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"portfolio",
+										"stock",
+										":stockId"
+									],
+									"variable": [
+										{
+											"key": "stockId",
+											"value": ""
+										}
+									]
+								},
+								"description": "Some extra details by stock ID"
+							},
+							"response": [
+								{
+									"name": "Stock Details",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:3000/api/v1/portfolio/stock/TSLA",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"v1",
+												"portfolio",
+												"stock",
+												"TSLA"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "120"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"78-HY/cG55ZaoLWY6lfDt1n4pXjkvk\""
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 18 Mar 2024 04:30:37 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"TSLA\",\n    \"name\": \"Tesla, Inc.\",\n    \"previousMarketClosePrice\": 162.5,\n    \"marketOpenPrice\": 163.14,\n    \"currentMarketPrice\": 163.57\n}"
+								},
+								{
+									"name": "Invalid stock id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_path}}/portfolio/stock/TSLA44",
+											"host": [
+												"{{base_path}}"
+											],
+											"path": [
+												"portfolio",
+												"stock",
+												"TSLA44"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "105"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"69-eWmnKSULGqbng6/GZmOYPk1WpR8\""
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 18 Mar 2024 04:40:31 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Internal Service Error\",\n    \"error\": \"Quote not found for ticker symbol: TSLA44\",\n    \"statusCode\": 404\n}"
+								}
+							]
+						}
+					],
+					"description": "List of APIs to manage stocks"
+				},
+				{
+					"name": "Trade",
+					"item": [
+						{
+							"name": "Add Trade",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"stockId\": \"TSLA\",\r\n    \"type\": \"BUY\",\r\n    \"unit_price\": 10,\r\n    \"quantity\": 100\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/portfolio/trade",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"portfolio",
+										"trade"
+									]
+								},
+								"description": "Add a trade transaction"
+							},
+							"response": [
+								{
+									"name": "Trade Added",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"stockId\": \"TSLA\",\r\n    \"type\": \"BUY\",\r\n    \"unit_price\": 10,\r\n    \"quantity\": 100\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:3000/api/v1/portfolio/trade",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"v1",
+												"portfolio",
+												"trade"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "202"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"ca-oaaBB6QZ0KKryhLUnE+Rc9TNbwQ\""
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 18 Mar 2024 04:32:18 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"stock_id\": \"TSLA\",\n    \"type\": \"BUY\",\n    \"unit_price\": 10,\n    \"quantity\": 100,\n    \"total_amount\": 1000,\n    \"_id\": \"65f7c3d2a91d3c2fda1b3aa2\",\n    \"createdAt\": \"2024-03-18T04:32:18.311Z\",\n    \"updatedAt\": \"2024-03-18T04:32:18.311Z\",\n    \"__v\": 0\n}"
+								}
+							]
+						},
+						{
+							"name": "List trades by Stock",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_path}}/portfolio/trade/:stock_id",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"portfolio",
+										"trade",
+										":stock_id"
+									],
+									"variable": [
+										{
+											"key": "stock_id",
+											"value": "",
+											"description": "Stock id"
+										}
+									]
+								},
+								"description": "List all trades of a particular stock"
+							},
+							"response": [
+								{
+									"name": "Trades by stock",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:3000/api/v1/portfolio/trade/:stock_id",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"v1",
+												"portfolio",
+												"trade",
+												":stock_id"
+											],
+											"variable": [
+												{
+													"key": "stock_id",
+													"value": ""
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "204"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"cc-jxdY3HUBC27mBKcJJcBP1SOHtRU\""
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 18 Mar 2024 04:33:57 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"_id\": \"65f7c3d2a91d3c2fda1b3aa2\",\n        \"stock_id\": \"TSLA\",\n        \"type\": \"BUY\",\n        \"unit_price\": 10,\n        \"quantity\": 100,\n        \"total_amount\": 1000,\n        \"createdAt\": \"2024-03-18T04:32:18.311Z\",\n        \"updatedAt\": \"2024-03-18T04:32:18.311Z\",\n        \"__v\": 0\n    }\n]"
+								},
+								{
+									"name": "Invalid Stock ID Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_path}}/portfolio/trade/:stock_id",
+											"host": [
+												"{{base_path}}"
+											],
+											"path": [
+												"portfolio",
+												"trade",
+												":stock_id"
+											],
+											"variable": [
+												{
+													"key": "stock_id",
+													"value": "",
+													"description": "Stock id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "83"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"53-OSlCzcTn7nTcq3GY/E1s0WxIFWM\""
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 18 Mar 2024 04:36:08 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"No trade found with this stockID\",\n    \"error\": \"Not Found\",\n    \"statusCode\": 404\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Trade",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"stockId\": \"TSLA\",\r\n    \"type\": \"BUY\",\r\n    \"unit_price\": 12,\r\n    \"quantity\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_path}}/portfolio/trade/:trade_id",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"portfolio",
+										"trade",
+										":trade_id"
+									],
+									"variable": [
+										{
+											"key": "trade_id",
+											"value": "65f7c3d2a91d3c2fda1b3aa2",
+											"description": "ID of the trade table from db"
+										}
+									]
+								},
+								"description": "Update a past trade transaction"
+							},
+							"response": [
+								{
+									"name": "Trade Updated",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"stockId\": \"TSLA\",\r\n    \"type\": \"BUY\",\r\n    \"unit_price\": 12,\r\n    \"quantity\": 10\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:3000/api/v1/portfolio/trade/:trade_id",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"v1",
+												"portfolio",
+												"trade",
+												":trade_id"
+											],
+											"variable": [
+												{
+													"key": "trade_id",
+													"value": "65f7c3d2a91d3c2fda1b3aa2",
+													"description": "ID of the trade table from db"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "200"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"c8-jDc0rS3eHdP60Pmp1QTZ56ILI2s\""
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 18 Mar 2024 04:38:03 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"_id\": \"65f7c3d2a91d3c2fda1b3aa2\",\n    \"stock_id\": \"TSLA\",\n    \"type\": \"BUY\",\n    \"unit_price\": 12,\n    \"quantity\": 10,\n    \"total_amount\": 120,\n    \"createdAt\": \"2024-03-18T04:32:18.311Z\",\n    \"updatedAt\": \"2024-03-18T04:38:03.891Z\",\n    \"__v\": 0\n}"
+								},
+								{
+									"name": "Invalid Trade ID",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"stockId\": \"TSLA\",\r\n    \"type\": \"BUY\",\r\n    \"unit_price\": 12,\r\n    \"quantity\": 10\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_path}}/portfolio/trade/:trade_id",
+											"host": [
+												"{{base_path}}"
+											],
+											"path": [
+												"portfolio",
+												"trade",
+												":trade_id"
+											],
+											"variable": [
+												{
+													"key": "trade_id",
+													"value": "65f7c3d2a91d3c2fda1b3aa2",
+													"description": "ID of the trade table from db"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "67"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"43-u/Gkm5zcbHjUIEPhnLdfUTJ3nT0\""
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 18 Mar 2024 04:38:45 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Invalid trade ID\",\n    \"error\": \"Not Found\",\n    \"statusCode\": 404\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete Trade",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_path}}/portfolio/trade/:trade_id",
+									"host": [
+										"{{base_path}}"
+									],
+									"path": [
+										"portfolio",
+										"trade",
+										":trade_id"
+									],
+									"variable": [
+										{
+											"key": "trade_id",
+											"value": "65f7c3d2a91d3c2fda1b3aa2"
+										}
+									]
+								},
+								"description": "Delete a trade transaction"
+							},
+							"response": [
+								{
+									"name": "Trade Deleted",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "localhost:3000/api/v1/portfolio/trade/:trade_id",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"v1",
+												"portfolio",
+												"trade",
+												":trade_id"
+											],
+											"variable": [
+												{
+													"key": "trade_id",
+													"value": "65f7c3d2a91d3c2fda1b3aa2"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "38"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"26-fgR5yLHQ1Hpp6zDESHaY9wJreYE\""
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 18 Mar 2024 04:39:59 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"acknowledged\": true,\n    \"deletedCount\": 1\n}"
+								}
+							]
+						}
+					],
+					"description": "Provide APIs to manage trades"
+				},
+				{
+					"name": "Portfolio Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_path}}/portfolio",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"portfolio"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Optional Page number; default 1;",
+									"disabled": true
+								},
+								{
+									"key": "limitPerPage",
+									"value": "10",
+									"description": "Optional limitPerPage; default 10;",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Showcase overall portfoilo with paginated trade history"
+					},
+					"response": [
+						{
+							"name": "Portfolio Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/v1/portfolio?page=1&limit=10",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"portfolio"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1124"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"464-ATNeHlwnaX3pBWLDcZM5kwvu9G0\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Mar 2024 04:44:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"portfolio\": [\n        {\n            \"stock_id\": \"ACLS\",\n            \"type\": \"PROFIT\",\n            \"avg_buying_price\": 107.61,\n            \"market_price\": 107.61,\n            \"change\": 0\n        },\n        {\n            \"stock_id\": \"BJ\",\n            \"type\": \"PROFIT\",\n            \"avg_buying_price\": 66.68,\n            \"market_price\": 75.09,\n            \"change\": 12.62\n        }\n    ],\n    \"tradeSummary\": {\n        \"trades\": [\n            {\n                \"_id\": \"65f7077a09ed7c2817a5e99d\",\n                \"stock_id\": \"ACLS\",\n                \"type\": \"BUY\",\n                \"unit_price\": 107.61,\n                \"quantity\": 10,\n                \"total_amount\": 1076.1,\n                \"createdAt\": \"2024-03-17T15:08:42.852Z\",\n                \"updatedAt\": \"2024-03-17T15:08:42.852Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"65f710759278336b48470168\",\n                \"stock_id\": \"BJ\",\n                \"type\": \"BUY\",\n                \"unit_price\": 75.09,\n                \"quantity\": 10,\n                \"total_amount\": 750.9000000000001,\n                \"createdAt\": \"2024-03-17T15:47:01.025Z\",\n                \"updatedAt\": \"2024-03-17T15:47:01.025Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"65f710819278336b4847016a\",\n                \"stock_id\": \"BJ\",\n                \"type\": \"BUY\",\n                \"unit_price\": 80.09,\n                \"quantity\": 500,\n                \"total_amount\": 40045,\n                \"createdAt\": \"2024-03-17T15:47:13.855Z\",\n                \"updatedAt\": \"2024-03-17T15:47:13.855Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"65f710899278336b4847016c\",\n                \"stock_id\": \"BJ\",\n                \"type\": \"BUY\",\n                \"unit_price\": 10.09,\n                \"quantity\": 120,\n                \"total_amount\": 1210.8,\n                \"createdAt\": \"2024-03-17T15:47:21.158Z\",\n                \"updatedAt\": \"2024-03-17T15:47:21.158Z\",\n                \"__v\": 0\n            }\n        ],\n        \"paginator\": {\n            \"page\": 1,\n            \"limitPerPage\": 10,\n            \"totalCount\": 4\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Holdings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_path}}/portfolio/holdings",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"portfolio",
+								"holdings"
+							]
+						},
+						"description": "Overview of all Holdings"
+					},
+					"response": [
+						{
+							"name": "Holding Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/v1/portfolio/holdings",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"portfolio",
+										"holdings"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "119"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"77-19gmZMkjWcOPiScyhWDXtdsTqgE\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Mar 2024 04:54:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"stock_id\": \"BJ\",\n        \"avg_buying_price\": 66.68,\n        \"quantity\": 630\n    },\n    {\n        \"stock_id\": \"ACLS\",\n        \"avg_buying_price\": 107.61,\n        \"quantity\": 10\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Returns",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_path}}/portfolio/returns",
+							"host": [
+								"{{base_path}}"
+							],
+							"path": [
+								"portfolio",
+								"returns"
+							]
+						},
+						"description": "Overview of Expected Cumelative Returns"
+					},
+					"response": [
+						{
+							"name": "Returns Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/v1/portfolio/returns",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"portfolio",
+										"returns"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "149"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"95-du2mQx/xmHX0GVCtW8gSrupr6jM\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Mar 2024 04:56:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"stock_id\": \"ACLS\",\n        \"quantity\": 10,\n        \"avg_buying_price\": 107.61,\n        \"returns\": -0.07\n    },\n    {\n        \"stock_id\": \"BJ\",\n        \"quantity\": 630,\n        \"avg_buying_price\": 66.68,\n        \"returns\": 0.5\n    }\n]"
+						}
+					]
+				}
+			],
+			"description": "List of APIs for managing Portfolio"
+		},
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}",
+					"host": [
+						"{{base_path}}"
+					]
+				},
+				"description": "To check service health"
+			},
+			"response": [
+				{
+					"name": "Health Status",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "107"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"6b-blhQxH35kT2Dj9qf3v9Tx0JhsQo\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 18 Mar 2024 04:57:09 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"time\": \"Mon Mar 18 2024 10:27:09 GMT+0530 (India Standard Time)\",\n    \"ENV\": \"development\",\n    \"uptime\": 154.2544146\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "api_version",
+			"value": "v1",
+			"type": "string"
+		},
+		{
+			"key": "base_path",
+			"value": "localhost:3000/api/v1",
+			"type": "string"
+		}
+	]
+}

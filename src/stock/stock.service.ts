@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { default as yf } from 'yahoo-finance2';
 import { map as _map, reduce as _reduce } from 'lodash';
 import { Stock } from './entities/stock.entity';
@@ -36,7 +40,7 @@ export class StockService {
         regularMarketPrice,
       );
     } catch (exception) {
-      throw new BadRequestException('Internal Service Error', {
+      throw new NotFoundException('Internal Service Error', {
         cause: exception,
         description: exception.message,
       });

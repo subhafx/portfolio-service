@@ -1,24 +1,5 @@
-import { TradeType } from '../trade.enums';
+import { TradeType } from '../trade.types';
 import { IsString, IsInt, IsEnum, IsNumber } from 'class-validator';
-// import { z } from 'zod';
-
-// export class CreateTradeDto {
-//   public stockId: string;
-//   public type: TradeType;
-//   public unit_price: number;
-//   public quantity: number;
-//   constructor(
-//     stockId: string,
-//     type: TradeType,
-//     unit_price: number,
-//     quantity: number,
-//   ) {
-//     this.stockId = stockId;
-//     this.type = type;
-//     this.unit_price = unit_price;
-//     this.quantity = quantity;
-//   }
-// }
 
 export class CreateTradeDto {
   @IsString()

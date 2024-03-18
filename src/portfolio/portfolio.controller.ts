@@ -1,14 +1,11 @@
 import { Controller, Get, ParseIntPipe, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { map as _map } from 'lodash';
 import { TradeService } from '../trade/trade.service';
 import { StockService } from '../stock/stock.service';
-import { map as _map } from 'lodash';
 
 @ApiTags('Portfolio')
-@Controller({
-  version: '1',
-  path: 'portfolio',
-})
+@Controller({ version: '1' })
 export class PortfolioController {
   constructor(
     private readonly tradeService: TradeService,
@@ -16,8 +13,9 @@ export class PortfolioController {
   ) {}
   @Get()
   async findAll(
-    @Query('page', new ParseIntPipe()) page: number,
-    @Query('limit', new ParseIntPipe()) limitPerPage: number,
+    @Query('page', new ParseIntPipe({ optional: true })) page: number,
+    @Query('limitPerPage', new ParseIntPipe({ optional: true }))
+    limitPerPage: number,
   ) {
     const stocksBuyingData = await this.tradeService.getStocksAvgBuyingPrice();
     const stockIds = _map(stocksBuyingData, 'stock_id');

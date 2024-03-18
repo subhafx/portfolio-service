@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { TradeType } from './trade.enums';
+import { TradeType } from './trade.types';
 
 export type TradeDocument = HydratedDocument<Trade>;
 
@@ -19,11 +19,3 @@ export class Trade {
 }
 
 export const TradeSchema = SchemaFactory.createForClass(Trade);
-// schema.pre('save', function (next) {
-//   if (this.isModified('unit_price') || this.isModified('quantity')) {
-//     this.total_amount = this.unit_price * this.quantity;
-//   }
-//   next();
-// });
-
-// export const TradeSchema = schema;

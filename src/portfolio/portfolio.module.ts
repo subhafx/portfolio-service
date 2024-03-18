@@ -12,6 +12,7 @@ import { RouterModule } from '@nestjs/core';
     RouterModule.register([
       {
         path: 'portfolio',
+        module: PortfolioModule,
         children: [
           { path: 'trade', module: TradeModule },
           { path: 'stock', module: StockModule },
