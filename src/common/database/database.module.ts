@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-
-const uri =
-  'mongodb+srv://agentfx:agentfx@cluster0.mkakccn.mongodb.net/stock_portfolio?retryWrites=true&w=majority&appName=Cluster0'; // Adjust connection details
+import { MongooseConfigService } from './mongoose-config.service';
 
 @Module({
-  imports: [MongooseModule.forRoot(uri)],
+  imports: [
+    MongooseModule.forRootAsync({
+      useClass: MongooseConfigService,
+    }),
+  ],
 })
 export class DatabaseModule {}

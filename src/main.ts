@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -17,7 +18,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   // sets the route for the docs, adds it to the our app and passes in the documentation
   SwaggerModule.setup('/docs', app, document);
-  await app.listen(3000);
+  const configService = app.get(ConfigService);
+  const PORT = configService.get<number>('APP_PORT', 3000);
+  await app.listen(PORT);
 }
 
 bootstrap();
