@@ -3,7 +3,10 @@ import { StockService } from './stock.service';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Stock')
-@Controller('stock')
+@Controller({
+  version: '1',
+  path: 'stock',
+})
 export class StockController {
   constructor(private readonly stockService: StockService) {}
 

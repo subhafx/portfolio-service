@@ -5,7 +5,10 @@ import { StockService } from '../stock/stock.service';
 import { map as _map } from 'lodash';
 
 @ApiTags('Portfolio')
-@Controller('portfolio')
+@Controller({
+  version: '1',
+  path: 'portfolio',
+})
 export class PortfolioController {
   constructor(
     private readonly tradeService: TradeService,
