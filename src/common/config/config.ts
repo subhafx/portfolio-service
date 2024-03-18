@@ -11,7 +11,7 @@ const defaultConfig: Partial<IConfig> = {
 };
 
 export const AppConfig = (): IConfig => {
-  const nodeEnv = process.env.NODE_ENV;
+  const nodeEnv = process.env.NODE_ENV || ENV.DEVELOPMENT;
   let envConfig: any;
   switch (nodeEnv) {
     case ENV.DEVELOPMENT:
